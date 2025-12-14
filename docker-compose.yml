@@ -45,3 +45,18 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+
+  # Web server to serve hooks.json
+  hooks-web:
+    image: nginx:alpine
+    container_name: osrs-hooks-web
+    restart: unless-stopped
+    ports:
+      - "3015:80"
+    volumes:
+      - ./data:/usr/share/nginx/html:ro
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "2"
