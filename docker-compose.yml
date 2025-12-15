@@ -34,6 +34,8 @@ services:
     depends_on:
       - gluetun
     volumes:
+      # Mount entire repo for git pull on startup
+      - .:/app/repo
       # All data accessible from host
       - ./data:/app/data
       - ./output:/app/output

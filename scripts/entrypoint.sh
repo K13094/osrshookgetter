@@ -7,6 +7,13 @@ echo "  Schedule: :01 and :31 of each hour"
 echo "  Output: /app/data/hooks.json"
 echo "=============================================="
 
+# Auto-update from git on startup
+if [ -d "/app/repo/.git" ]; then
+    echo "[HOOK-SERVICE] Pulling latest from git..."
+    cd /app/repo && git pull --ff-only 2>/dev/null || echo "[HOOK-SERVICE] Git pull skipped (no changes or not available)"
+    cd /app
+fi
+
 # Create directories if needed
 mkdir -p /app/data /app/output
 
