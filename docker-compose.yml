@@ -17,7 +17,7 @@ services:
       # Server selection (optional - defaults to automatic)
       - SERVER_COUNTRIES=${IPVANISH_COUNTRY:-United States}
     volumes:
-      - ./gluetun:/gluetun
+      - /mnt/Storage/osrshookgetter/gluetun:/gluetun
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -26,7 +26,7 @@ services:
         max-file: "2"
 
   osrs-hooks:
-    build: .
+    build: https://github.com/K13094/osrshookgetter.git
     container_name: osrs-hook-service
     restart: unless-stopped
     # Route all traffic through VPN container
@@ -35,10 +35,9 @@ services:
       - gluetun
     volumes:
       # All data accessible from host
-      - ./data:/app/data
-      - ./output:/app/output
-      - ./better-deob:/app/better-deob
-      - ./scripts:/app/scripts
+      - /mnt/Storage/osrshookgetter/data:/app/data
+      - /mnt/Storage/osrshookgetter/output:/app/output
+      - /mnt/Storage/osrshookgetter/better-deob:/app/better-deob
     # Logging configuration
     logging:
       driver: "json-file"
@@ -54,7 +53,7 @@ services:
     ports:
       - "3015:80"
     volumes:
-      - ./data:/usr/share/nginx/html:ro
+      - /mnt/Storage/osrshookgetter/data:/usr/share/nginx/html:ro
     logging:
       driver: "json-file"
       options:
