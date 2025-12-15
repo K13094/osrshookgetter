@@ -10,9 +10,8 @@ RUN apt-get update && apt-get install -y \
 # Set working directory
 WORKDIR /app
 
-# Clone and build BetterDeob from GitHub
-RUN git clone https://github.com/K13094/better-deob.git /app/better-deob && \
-    cd /app/better-deob && ./gradlew build --no-daemon
+# better-deob is mounted as volume at runtime
+# Build it on first run via entrypoint
 
 # Copy scripts
 COPY scripts/ /app/scripts/

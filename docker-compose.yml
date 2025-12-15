@@ -26,7 +26,7 @@ services:
         max-file: "2"
 
   osrs-hooks:
-    image: ghcr.io/k13094/osrshookgetter:latest
+    build: .
     container_name: osrs-hook-service
     restart: unless-stopped
     # Route all traffic through VPN container
@@ -34,9 +34,9 @@ services:
     depends_on:
       - gluetun
     volumes:
-      # All data accessible from host
       - /mnt/Storage/osrshookgetter/data:/app/data
       - /mnt/Storage/osrshookgetter/output:/app/output
+      - /mnt/Storage/osrshookgetter/better-deob:/app/better-deob
     # Logging configuration
     logging:
       driver: "json-file"
